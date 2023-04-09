@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% for listing in listings %}
+        <h2>{{ listing }}</h2>
+        <div class="card" style="width: 55vh;">
+            <img src="{{ listing.photo }}" alt="Listing Image" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{ listing.title }}</h5>
+                <p class="card-text">{{ listing.description }}</p>
+            </div>
+            {% if not listing.closed %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Initial Price: ${{ listing.price }}</li>
+                {% if listing.user == owner %}
+                    <li class="list-group-item"><a href="{% url 'closeauction' listing.id %}">Close Auction</a></li>
+                {% endif %}
+            {% else %}
+            <li class="list-group-item">{{ listing.user }} bought for ${{ listing.sold_price }} </li>
+            {% endif %}
+            <li class="list-group-item"><a href="{% url 'listing' listing.id %}">Click Here for Details</a></li>
+            </ul>
+        </div>
+
+    {% empty %}
+    <h2>No Active Listings</h2>
+    
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>{{ listing }}</h2>
+            <div class="card" style="width: 55vh;">
+                <img src="{{ listing.photo }}" alt="Listing Image" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ listing.title }}</h5>
+                    <p class="card-text">{{ listing.description }}</p>
+                </div>
+                {% if not listing.closed %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Bid is at: ${{ bid_price }}</li>
+                    {% if signedin %}
+                    {% if listing.user == owner %}
+                    <li class="list-group-item"><a href="{% url 'closeauction' listing.id %}">Close Auction</a></li>
+                    {% else %}
+                    <li class="list-group-item">
+                        <form action="{% url 'submitbid' listing.id %}">
+                            <input name="bid" type=text placeholder="Place a Bid Here!">
+                        </form>
+                    </li>
+                        {% if not cond %}
+                        <li class="list-group-item"><a href="{% url 'addwatchlist' listing.id %}">Add to Watchlist</a></li>
+                        {% else %}
+                        <li class="list-group-item"><a href="{% url 'removewatchlist' listing.id %}">Remove from Watchlist</a></li>
+                        {% endif %}
+                    {% endif %}
+                    {% endif %}
+                    
+                {% else %}
+                    <li class="list-group-item">{{ owner.username }} bought for ${{ bid_price }}</li>
+                {% endif %}
+                </ul>
+            </div>
+            <br>
+        </div>
+
+        <div class="col-sm-6">
+            {% if signedin %}
+            <h2>Write a Comment!</h2>
+            <form action="{% url 'listing' listing.id %}" method="post">
+                {% csrf_token %}
+                <textarea type="text" class="form-control" name="comment"></textarea>
+                <button>Save!</button>
+            </form>
+            <br>
+            {% endif %}
+            <h2>Comment Thread</h2>
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    {% for comment in comments %}
+                    <li class="list-group-item">{{ comment.user }} said: {{ comment.comment }}</li>
+                    {% endfor %}
+                </ul>
+            </div>   
+        </div>
+    </div>
+
+    <h2>Details</h2>
+    <ul>
+        <li>Category: {{ listing.category }}</li>
+    </ul>
+
+
+
+{% endblock %}

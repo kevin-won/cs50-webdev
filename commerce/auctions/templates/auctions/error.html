@@ -1,0 +1,9 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if cond %}
+        <h2>Bid is not valid</h2>
+    {% else %}
+        <h2>Watchlist Already Added</h2>
+    {% endif %}
+{% endblock %}
