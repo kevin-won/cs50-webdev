@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap");
+* {
+  font-family: "Comfortaa", cursive;
+}
+
+.search-txt {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-width: 550px;
+  width: 50%;
+  padding: 5px;
+  border-radius: 50px;
+  outline: none;
+}
+
+h1 {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 32%;
+  left: 50%;
+  font-size: 75px;
+}
+
+div {
+  position: fixed;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+div .feeling-lucky, div .search-btn {
+  padding: 5px 15px;
+  background: #ccc;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+div .search-btn {
+  margin-right: 8px;
+}
+div .feeling-lucky {
+  margin-left: 8px;
+}
+
+a {
+  position: absolute;
+  right: 3%;
+}
+
+a[href] {
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=styles.css.map */
